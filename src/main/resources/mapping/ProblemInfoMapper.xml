@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winter.mapper.ProblemInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.winter.model.ProblemInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="questionnaire_id" property="questionnaireId" jdbcType="INTEGER" />
+    <result column="kind_id" property="kindId" jdbcType="INTEGER" />
+    <result column="problem_name" property="problemName" jdbcType="VARCHAR" />
+    <result column="problem_option" property="problemOption" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="CHAR" />
+    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="CHAR" />
+    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, questionnaire_id, kind_id, problem_name, problem_option, created_by, creation_date, 
+    last_updated_by, last_update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from problem_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from problem_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.winter.model.ProblemInfo" >
+    insert into problem_info (id, questionnaire_id, kind_id, 
+      problem_name, problem_option, created_by, 
+      creation_date, last_updated_by, last_update_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{questionnaireId,jdbcType=INTEGER}, #{kindId,jdbcType=INTEGER}, 
+      #{problemName,jdbcType=VARCHAR}, #{problemOption,jdbcType=VARCHAR}, #{createdBy,jdbcType=CHAR}, 
+      #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=CHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.winter.model.ProblemInfo" >
+    insert into problem_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="questionnaireId != null" >
+        questionnaire_id,
+      </if>
+      <if test="kindId != null" >
+        kind_id,
+      </if>
+      <if test="problemName != null" >
+        problem_name,
+      </if>
+      <if test="problemOption != null" >
+        problem_option,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="creationDate != null" >
+        creation_date,
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by,
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionnaireId != null" >
+        #{questionnaireId,jdbcType=INTEGER},
+      </if>
+      <if test="kindId != null" >
+        #{kindId,jdbcType=INTEGER},
+      </if>
+      <if test="problemName != null" >
+        #{problemName,jdbcType=VARCHAR},
+      </if>
+      <if test="problemOption != null" >
+        #{problemOption,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        #{lastUpdatedBy,jdbcType=CHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.winter.model.ProblemInfo" >
+    update problem_info
+    <set >
+      <if test="questionnaireId != null" >
+        questionnaire_id = #{questionnaireId,jdbcType=INTEGER},
+      </if>
+      <if test="kindId != null" >
+        kind_id = #{kindId,jdbcType=INTEGER},
+      </if>
+      <if test="problemName != null" >
+        problem_name = #{problemName,jdbcType=VARCHAR},
+      </if>
+      <if test="problemOption != null" >
+        problem_option = #{problemOption,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="creationDate != null" >
+        creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.winter.model.ProblemInfo" >
+    update problem_info
+    set questionnaire_id = #{questionnaireId,jdbcType=INTEGER},
+      kind_id = #{kindId,jdbcType=INTEGER},
+      problem_name = #{problemName,jdbcType=VARCHAR},
+      problem_option = #{problemOption,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=CHAR},
+      creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
+      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
