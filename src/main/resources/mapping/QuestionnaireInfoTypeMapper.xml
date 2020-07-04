@@ -2,31 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.winter.mapper.QuestionnaireInfoTypeMapper" >
   <resultMap id="BaseResultMap" type="com.winter.model.QuestionnaireInfoType" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="create_by" property="createBy" jdbcType="CHAR" />
+    <result column="created_by" property="createdBy" jdbcType="CHAR" />
     <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
     <result column="last_updated_by" property="lastUpdatedBy" jdbcType="CHAR" />
     <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, create_by, creation_date, last_updated_by, last_update_date
+    id, type, created_by, creation_date, last_updated_by, last_update_date
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from questionnaire_info_type
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from questionnaire_info_type
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.winter.model.QuestionnaireInfoType" >
-    insert into questionnaire_info_type (id, type, create_by, 
+    insert into questionnaire_info_type (id, type, created_by, 
       creation_date, last_updated_by, last_update_date
       )
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{createdBy,jdbcType=CHAR}, 
       #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=CHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -39,8 +39,8 @@
       <if test="type != null" >
         type,
       </if>
-      <if test="createBy != null" >
-        create_by,
+      <if test="createdBy != null" >
+        created_by,
       </if>
       <if test="creationDate != null" >
         creation_date,
@@ -54,13 +54,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=CHAR},
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=CHAR},
       </if>
       <if test="creationDate != null" >
         #{creationDate,jdbcType=TIMESTAMP},
@@ -79,8 +79,8 @@
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=CHAR},
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=CHAR},
       </if>
       <if test="creationDate != null" >
         creation_date = #{creationDate,jdbcType=TIMESTAMP},
@@ -92,15 +92,15 @@
         last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.winter.model.QuestionnaireInfoType" >
     update questionnaire_info_type
     set type = #{type,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=CHAR},
+      created_by = #{createdBy,jdbcType=CHAR},
       creation_date = #{creationDate,jdbcType=TIMESTAMP},
       last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
       last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

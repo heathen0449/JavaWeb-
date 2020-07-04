@@ -3,9 +3,9 @@ package com.winter.model;
 import java.util.Date;
 
 public class QuestionnaireInfo {
-    private Integer id;
+    private String id;
 
-    private Integer typeId;
+    private String typeId;
 
     private String questionName;
 
@@ -19,20 +19,20 @@ public class QuestionnaireInfo {
 
     private String questionContent;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Integer getTypeId() {
+    public String getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setTypeId(String typeId) {
+        this.typeId = typeId == null ? null : typeId.trim();
     }
 
     public String getQuestionName() {

@@ -3,15 +3,13 @@ package com.winter.model;
 import java.util.Date;
 
 public class ProblemInfo {
-    private Integer id;
+    private String id;
 
-    private Integer questionnaireId;
+    private String questionnaireId;
 
-    private Integer kindId;
+    private String kindId;
 
     private String problemName;
-
-    private String problemOption;
 
     private String createdBy;
 
@@ -21,28 +19,28 @@ public class ProblemInfo {
 
     private Date lastUpdateDate;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Integer getQuestionnaireId() {
+    public String getQuestionnaireId() {
         return questionnaireId;
     }
 
-    public void setQuestionnaireId(Integer questionnaireId) {
-        this.questionnaireId = questionnaireId;
+    public void setQuestionnaireId(String questionnaireId) {
+        this.questionnaireId = questionnaireId == null ? null : questionnaireId.trim();
     }
 
-    public Integer getKindId() {
+    public String getKindId() {
         return kindId;
     }
 
-    public void setKindId(Integer kindId) {
-        this.kindId = kindId;
+    public void setKindId(String kindId) {
+        this.kindId = kindId == null ? null : kindId.trim();
     }
 
     public String getProblemName() {
@@ -51,14 +49,6 @@ public class ProblemInfo {
 
     public void setProblemName(String problemName) {
         this.problemName = problemName == null ? null : problemName.trim();
-    }
-
-    public String getProblemOption() {
-        return problemOption;
-    }
-
-    public void setProblemOption(String problemOption) {
-        this.problemOption = problemOption == null ? null : problemOption.trim();
     }
 
     public String getCreatedBy() {

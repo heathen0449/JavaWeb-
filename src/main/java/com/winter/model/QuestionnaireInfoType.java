@@ -3,11 +3,11 @@ package com.winter.model;
 import java.util.Date;
 
 public class QuestionnaireInfoType {
-    private Integer id;
+    private String id;
 
     private String type;
 
-    private String createBy;
+    private String createdBy;
 
     private Date creationDate;
 
@@ -15,12 +15,12 @@ public class QuestionnaireInfoType {
 
     private Date lastUpdateDate;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getType() {
@@ -31,12 +31,12 @@ public class QuestionnaireInfoType {
         this.type = type == null ? null : type.trim();
     }
 
-    public String getCreateBy() {
-        return createBy;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy == null ? null : createdBy.trim();
     }
 
     public Date getCreationDate() {

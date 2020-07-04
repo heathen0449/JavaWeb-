@@ -3,24 +3,24 @@ package com.winter.model;
 import java.util.Date;
 
 public class ProblemType {
-    private Integer id;
+    private String id;
 
     private String kind;
 
-    private String creatBy;
+    private String createdBy;
 
     private Date creationDate;
 
     private String lastUpdatedBy;
 
-    private Date lastUpdateTime;
+    private Date lastUpdateDate;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getKind() {
@@ -31,12 +31,12 @@ public class ProblemType {
         this.kind = kind == null ? null : kind.trim();
     }
 
-    public String getCreatBy() {
-        return creatBy;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatBy(String creatBy) {
-        this.creatBy = creatBy == null ? null : creatBy.trim();
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy == null ? null : createdBy.trim();
     }
 
     public Date getCreationDate() {
@@ -55,11 +55,11 @@ public class ProblemType {
         this.lastUpdatedBy = lastUpdatedBy == null ? null : lastUpdatedBy.trim();
     }
 
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
     }
 
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 }
