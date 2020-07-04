@@ -1,21 +1,13 @@
 package com.winter.model;
 
-import java.util.Date;
-
 public class QuestionnaireInfo {
     private String id;
 
     private String typeId;
 
+    private String questionTitle;
+
     private String questionName;
-
-    private String createdBy;
-
-    private Date creationDate;
-
-    private String lastUpdatedBy;
-
-    private Date lastUpdateDate;
 
     private String questionContent;
 
@@ -35,44 +27,20 @@ public class QuestionnaireInfo {
         this.typeId = typeId == null ? null : typeId.trim();
     }
 
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle == null ? null : questionTitle.trim();
+    }
+
     public String getQuestionName() {
         return questionName;
     }
 
     public void setQuestionName(String questionName) {
         this.questionName = questionName == null ? null : questionName.trim();
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy == null ? null : createdBy.trim();
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy == null ? null : lastUpdatedBy.trim();
-    }
-
-    public Date getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(Date lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
     }
 
     public String getQuestionContent() {

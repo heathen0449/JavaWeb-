@@ -1,9 +1,9 @@
 package com.winter.model;
 
-public class ProblemType {
+public class QuestionnaireType {
     private String id;
 
-    private String kind;
+    private String type;
 
     public String getId() {
         return id;
@@ -13,11 +13,11 @@ public class ProblemType {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getKind() {
-        return kind;
+    public String getType() {
+        return type;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind == null ? null : kind.trim();
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 }

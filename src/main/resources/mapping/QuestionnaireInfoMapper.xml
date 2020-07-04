@@ -4,17 +4,14 @@
   <resultMap id="BaseResultMap" type="com.winter.model.QuestionnaireInfo" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="type_id" property="typeId" jdbcType="VARCHAR" />
+    <result column="question_title" property="questionTitle" jdbcType="VARCHAR" />
     <result column="question_name" property="questionName" jdbcType="VARCHAR" />
-    <result column="created_by" property="createdBy" jdbcType="CHAR" />
-    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
-    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="CHAR" />
-    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.winter.model.QuestionnaireInfo" extends="BaseResultMap" >
     <result column="question_content" property="questionContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type_id, question_name, created_by, creation_date, last_updated_by, last_update_date
+    id, type_id, question_title, question_name
   </sql>
   <sql id="Blob_Column_List" >
     question_content
@@ -32,12 +29,10 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.winter.model.QuestionnaireInfo" >
-    insert into questionnaire_info (id, type_id, question_name, 
-      created_by, creation_date, last_updated_by, 
-      last_update_date, question_content)
-    values (#{id,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, #{questionName,jdbcType=VARCHAR}, 
-      #{createdBy,jdbcType=CHAR}, #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=CHAR}, 
-      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{questionContent,jdbcType=LONGVARCHAR})
+    insert into questionnaire_info (id, type_id, question_title, 
+      question_name, question_content)
+    values (#{id,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, #{questionTitle,jdbcType=VARCHAR}, 
+      #{questionName,jdbcType=VARCHAR}, #{questionContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.winter.model.QuestionnaireInfo" >
     insert into questionnaire_info
@@ -48,20 +43,11 @@
       <if test="typeId != null" >
         type_id,
       </if>
+      <if test="questionTitle != null" >
+        question_title,
+      </if>
       <if test="questionName != null" >
         question_name,
-      </if>
-      <if test="createdBy != null" >
-        created_by,
-      </if>
-      <if test="creationDate != null" >
-        creation_date,
-      </if>
-      <if test="lastUpdatedBy != null" >
-        last_updated_by,
-      </if>
-      <if test="lastUpdateDate != null" >
-        last_update_date,
       </if>
       <if test="questionContent != null" >
         question_content,
@@ -74,20 +60,11 @@
       <if test="typeId != null" >
         #{typeId,jdbcType=VARCHAR},
       </if>
+      <if test="questionTitle != null" >
+        #{questionTitle,jdbcType=VARCHAR},
+      </if>
       <if test="questionName != null" >
         #{questionName,jdbcType=VARCHAR},
-      </if>
-      <if test="createdBy != null" >
-        #{createdBy,jdbcType=CHAR},
-      </if>
-      <if test="creationDate != null" >
-        #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdatedBy != null" >
-        #{lastUpdatedBy,jdbcType=CHAR},
-      </if>
-      <if test="lastUpdateDate != null" >
-        #{lastUpdateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="questionContent != null" >
         #{questionContent,jdbcType=LONGVARCHAR},
@@ -100,20 +77,11 @@
       <if test="typeId != null" >
         type_id = #{typeId,jdbcType=VARCHAR},
       </if>
+      <if test="questionTitle != null" >
+        question_title = #{questionTitle,jdbcType=VARCHAR},
+      </if>
       <if test="questionName != null" >
         question_name = #{questionName,jdbcType=VARCHAR},
-      </if>
-      <if test="createdBy != null" >
-        created_by = #{createdBy,jdbcType=CHAR},
-      </if>
-      <if test="creationDate != null" >
-        creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdatedBy != null" >
-        last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
-      </if>
-      <if test="lastUpdateDate != null" >
-        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="questionContent != null" >
         question_content = #{questionContent,jdbcType=LONGVARCHAR},
@@ -124,22 +92,16 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.winter.model.QuestionnaireInfo" >
     update questionnaire_info
     set type_id = #{typeId,jdbcType=VARCHAR},
+      question_title = #{questionTitle,jdbcType=VARCHAR},
       question_name = #{questionName,jdbcType=VARCHAR},
-      created_by = #{createdBy,jdbcType=CHAR},
-      creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
-      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
       question_content = #{questionContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.winter.model.QuestionnaireInfo" >
     update questionnaire_info
     set type_id = #{typeId,jdbcType=VARCHAR},
-      question_name = #{questionName,jdbcType=VARCHAR},
-      created_by = #{createdBy,jdbcType=CHAR},
-      creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
-      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}
+      question_title = #{questionTitle,jdbcType=VARCHAR},
+      question_name = #{questionName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

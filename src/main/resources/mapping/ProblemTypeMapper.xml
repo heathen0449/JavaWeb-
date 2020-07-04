@@ -4,13 +4,9 @@
   <resultMap id="BaseResultMap" type="com.winter.model.ProblemType" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="kind" property="kind" jdbcType="VARCHAR" />
-    <result column="created_by" property="createdBy" jdbcType="CHAR" />
-    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
-    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="CHAR" />
-    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, kind, created_by, creation_date, last_updated_by, last_update_date
+    id, kind
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -23,12 +19,8 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.winter.model.ProblemType" >
-    insert into problem_type (id, kind, created_by, 
-      creation_date, last_updated_by, last_update_date
-      )
-    values (#{id,jdbcType=VARCHAR}, #{kind,jdbcType=VARCHAR}, #{createdBy,jdbcType=CHAR}, 
-      #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=CHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}
-      )
+    insert into problem_type (id, kind)
+    values (#{id,jdbcType=VARCHAR}, #{kind,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.winter.model.ProblemType" >
     insert into problem_type
@@ -39,18 +31,6 @@
       <if test="kind != null" >
         kind,
       </if>
-      <if test="createdBy != null" >
-        created_by,
-      </if>
-      <if test="creationDate != null" >
-        creation_date,
-      </if>
-      <if test="lastUpdatedBy != null" >
-        last_updated_by,
-      </if>
-      <if test="lastUpdateDate != null" >
-        last_update_date,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -58,18 +38,6 @@
       </if>
       <if test="kind != null" >
         #{kind,jdbcType=VARCHAR},
-      </if>
-      <if test="createdBy != null" >
-        #{createdBy,jdbcType=CHAR},
-      </if>
-      <if test="creationDate != null" >
-        #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdatedBy != null" >
-        #{lastUpdatedBy,jdbcType=CHAR},
-      </if>
-      <if test="lastUpdateDate != null" >
-        #{lastUpdateDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -79,28 +47,12 @@
       <if test="kind != null" >
         kind = #{kind,jdbcType=VARCHAR},
       </if>
-      <if test="createdBy != null" >
-        created_by = #{createdBy,jdbcType=CHAR},
-      </if>
-      <if test="creationDate != null" >
-        creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdatedBy != null" >
-        last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
-      </if>
-      <if test="lastUpdateDate != null" >
-        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.winter.model.ProblemType" >
     update problem_type
-    set kind = #{kind,jdbcType=VARCHAR},
-      created_by = #{createdBy,jdbcType=CHAR},
-      creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
-      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}
+    set kind = #{kind,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

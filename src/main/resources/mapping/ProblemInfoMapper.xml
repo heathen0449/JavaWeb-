@@ -6,14 +6,9 @@
     <result column="questionnaire_id" property="questionnaireId" jdbcType="VARCHAR" />
     <result column="kind_id" property="kindId" jdbcType="VARCHAR" />
     <result column="problem_name" property="problemName" jdbcType="VARCHAR" />
-    <result column="created_by" property="createdBy" jdbcType="CHAR" />
-    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
-    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="CHAR" />
-    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, questionnaire_id, kind_id, problem_name, created_by, creation_date, last_updated_by, 
-    last_update_date
+    id, questionnaire_id, kind_id, problem_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -27,11 +22,9 @@
   </delete>
   <insert id="insert" parameterType="com.winter.model.ProblemInfo" >
     insert into problem_info (id, questionnaire_id, kind_id, 
-      problem_name, created_by, creation_date, 
-      last_updated_by, last_update_date)
+      problem_name)
     values (#{id,jdbcType=VARCHAR}, #{questionnaireId,jdbcType=VARCHAR}, #{kindId,jdbcType=VARCHAR}, 
-      #{problemName,jdbcType=VARCHAR}, #{createdBy,jdbcType=CHAR}, #{creationDate,jdbcType=TIMESTAMP}, 
-      #{lastUpdatedBy,jdbcType=CHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP})
+      #{problemName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.winter.model.ProblemInfo" >
     insert into problem_info
@@ -48,18 +41,6 @@
       <if test="problemName != null" >
         problem_name,
       </if>
-      <if test="createdBy != null" >
-        created_by,
-      </if>
-      <if test="creationDate != null" >
-        creation_date,
-      </if>
-      <if test="lastUpdatedBy != null" >
-        last_updated_by,
-      </if>
-      <if test="lastUpdateDate != null" >
-        last_update_date,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -73,18 +54,6 @@
       </if>
       <if test="problemName != null" >
         #{problemName,jdbcType=VARCHAR},
-      </if>
-      <if test="createdBy != null" >
-        #{createdBy,jdbcType=CHAR},
-      </if>
-      <if test="creationDate != null" >
-        #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdatedBy != null" >
-        #{lastUpdatedBy,jdbcType=CHAR},
-      </if>
-      <if test="lastUpdateDate != null" >
-        #{lastUpdateDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -100,18 +69,6 @@
       <if test="problemName != null" >
         problem_name = #{problemName,jdbcType=VARCHAR},
       </if>
-      <if test="createdBy != null" >
-        created_by = #{createdBy,jdbcType=CHAR},
-      </if>
-      <if test="creationDate != null" >
-        creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdatedBy != null" >
-        last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
-      </if>
-      <if test="lastUpdateDate != null" >
-        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -119,11 +76,7 @@
     update problem_info
     set questionnaire_id = #{questionnaireId,jdbcType=VARCHAR},
       kind_id = #{kindId,jdbcType=VARCHAR},
-      problem_name = #{problemName,jdbcType=VARCHAR},
-      created_by = #{createdBy,jdbcType=CHAR},
-      creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      last_updated_by = #{lastUpdatedBy,jdbcType=CHAR},
-      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}
+      problem_name = #{problemName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
