@@ -2,10 +2,11 @@ package com.winter.service;
 
 
 import com.winter.beans.ResultResponse;
-import com.winter.model.QuestionnaireInfo;
+import com.winter.model.QuestionnairePlus;
 
 public interface QuestionnaireService {
 
-    ResultResponse addQues(QuestionnaireInfo quest);//添加问卷
+    ResultResponse addQues(QuestionnairePlus quest);//添加问卷
+
 
 }

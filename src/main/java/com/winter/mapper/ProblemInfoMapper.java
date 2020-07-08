@@ -1,15 +1,16 @@
 package com.winter.mapper;
 
 import com.winter.model.ProblemInfo;
+import com.winter.model.ProblemInfoKey;
 
 public interface ProblemInfoMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(ProblemInfoKey key);
 
     int insert(ProblemInfo record);
 
     int insertSelective(ProblemInfo record);
 
-    ProblemInfo selectByPrimaryKey(String id);
+    ProblemInfo selectByPrimaryKey(ProblemInfoKey key);
 
     int updateByPrimaryKeySelective(ProblemInfo record);
 

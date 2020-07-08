@@ -3,22 +3,24 @@
 <mapper namespace="com.winter.mapper.ProblemInfoMapper" >
   <resultMap id="BaseResultMap" type="com.winter.model.ProblemInfo" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="questionnaire_id" property="questionnaireId" jdbcType="VARCHAR" />
+    <id column="questionnaire_id" property="questionnaireId" jdbcType="VARCHAR" />
     <result column="kind_id" property="kindId" jdbcType="VARCHAR" />
     <result column="problem_name" property="problemName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, questionnaire_id, kind_id, problem_name
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.winter.model.ProblemInfoKey" >
     select 
     <include refid="Base_Column_List" />
     from problem_info
     where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="com.winter.model.ProblemInfoKey" >
     delete from problem_info
     where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.winter.model.ProblemInfo" >
     insert into problem_info (id, questionnaire_id, kind_id, 
@@ -60,9 +62,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.winter.model.ProblemInfo" >
     update problem_info
     <set >
-      <if test="questionnaireId != null" >
-        questionnaire_id = #{questionnaireId,jdbcType=VARCHAR},
-      </if>
       <if test="kindId != null" >
         kind_id = #{kindId,jdbcType=VARCHAR},
       </if>
@@ -71,12 +70,13 @@
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.winter.model.ProblemInfo" >
     update problem_info
-    set questionnaire_id = #{questionnaireId,jdbcType=VARCHAR},
-      kind_id = #{kindId,jdbcType=VARCHAR},
+    set kind_id = #{kindId,jdbcType=VARCHAR},
       problem_name = #{problemName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
   </update>
 </mapper>
