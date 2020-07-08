@@ -20,7 +20,7 @@ public class AddQuesController {
     private QuestionnaireService questionnaireService;
 
     @ResponseBody
-    @RequestMapping(value="/addquestionnaire.html",method= RequestMethod.POST,  produces={"application/json;charset=UTF-8"})
+    @RequestMapping(value="/addQuestionnaire",method= RequestMethod.POST,  produces={"application/json;charset=UTF-8"})
     public ResultResponse addquestionnaire (@RequestBody QuestionnairePlus quest){
         return questionnaireService.addQues(quest);
     }
