@@ -68,4 +68,10 @@
     where id = #{id,jdbcType=VARCHAR}
       and problem_id = #{problemId,jdbcType=VARCHAR}
   </update>
+  <select id="selectByProId"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from problem_option
+    where problem_id=#{id,jdbcType=VARCHAR}
+  </select>
 </mapper>

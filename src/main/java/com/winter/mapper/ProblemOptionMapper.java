@@ -15,4 +15,6 @@ public interface ProblemOptionMapper {
     int updateByPrimaryKeySelective(ProblemOption record);
 
     int updateByPrimaryKey(ProblemOption record);
+
+    ProblemOption selectByProId(String id);
 }

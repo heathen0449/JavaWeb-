@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--suppress JSUnresolvedVariable -->
-<html lang="ch">
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>增加问卷</title>
     <!-- 新 Bootstrap4 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
 
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
@@ -15,7 +15,7 @@
 
     <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="first.css">
+    <link type="text/css" rel="stylesheet" th:href="@{/first.css}"/>
 </head>
 <body>
 <form>
@@ -126,13 +126,14 @@
             }
             else
             {
-                alert(text);
                 var option=new ProblemOption();
-                option.id=$("#optionKind:selected").val();
+                option.id=$("select#optionKind").find("option:selected").val();
+                alert(option.id);
                 option.optionWord=text;
                 option.problemId=problemlist[problemlist.length-1].id;
                 optionlist.push(option);
                 $('#optioncontext').val('');
+                document.getElementById("optioncontext").value='';
             }
         }
 
@@ -158,27 +159,32 @@
                 alert("未初始化问题");
                 return;
             }
-            else if(document.getElementById("proname").value==''||$('input[name=choice]:checked').val()==''){
+            else if(document.getElementById("proname").value==''){
                 alert("未填写问题内容");
+                return;
+            }
+            else if($("input[name='choice']:checked").val()==''){
+                alert("未填写问题种类");
                 return;
             }
             else if (questionnaire.id==null){
                 alert("未初始化问卷编号");
                 return;
             }
+            else if(optionlist.length==0){
+                alert("未添加选项");
+                return;
+            }
             else{
                 var radio=document.getElementsByName("choice").value;
-                for (let s in radio){
-                    if (s.checked()){
-                        problemlist[num-1].kindId=s.value;
-                    }
-                }
+                problemlist[num-1].kindId=$("input[name='choice']:checked").val();
                 problemlist[num-1].questionnaireId=questionnaire.id;
                 problemlist[num-1].problemName=document.getElementById("proname").value;
                 problemlist[num-1].optionLists=optionlist;
                 optionlist=[];
                 document.getElementById("proname").value='';
-                $('input[name=choice]:checked').val('');
+                alert(problemlist[num-1].kindId);
+                $("input[name='choice']:checked").val('');
             }
         }
         function subquesiton(){
@@ -190,8 +196,12 @@
                 alert("未初始化问卷编号");
                 return;
             }
+            else if(problemlist.length==0||problemlist[problemlist.length-1].kindId==null){
+                alert("未添加问题");
+                return;
+            }
             else{
-                questionnaire.typeid=$('#queKind:selected').val();
+                questionnaire.typeId=$('select#queKind option:selected').val();
                 questionnaire.questionTitle=$('#title').val();
                 $('#title').val('');
                 questionnaire.questionContent=$('#queCon').val();
@@ -201,7 +211,7 @@
                 questionnaire.problemLists=problemlist;
                 problemlist=[];
                 var json=JSON.stringify(questionnaire);
-                xmlhttp.open("POST","http://localhost:8080/test/add",true);
+                xmlhttp.open("POST","http://localhost:8080/add/addQuestionnaire",true);
                 xmlhttp.setRequestHeader("Content-type","application/json");
                 xmlhttp.onreadystatechange=function(){
                     if(xmlhttp.readyState==4){
@@ -217,6 +227,7 @@
                     }
                 }
                 xmlhttp.send(json);
+                alert(json)
             }
         }
     </script>
