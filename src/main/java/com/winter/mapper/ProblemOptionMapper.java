@@ -3,6 +3,8 @@ package com.winter.mapper;
 import com.winter.model.ProblemOption;
 import com.winter.model.ProblemOptionKey;
 
+import java.util.List;
+
 public interface ProblemOptionMapper {
     int deleteByPrimaryKey(ProblemOptionKey key);
 
@@ -16,5 +18,5 @@ public interface ProblemOptionMapper {
 
     int updateByPrimaryKey(ProblemOption record);
 
-    ProblemOption selectByProId(String id);
+    List<ProblemOption> selectByProId(String id);
 }

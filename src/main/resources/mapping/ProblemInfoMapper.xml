@@ -79,4 +79,9 @@
     where id = #{id,jdbcType=VARCHAR}
       and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
   </update>
+  <select id="selectByQuesId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from problem_info
+    where questionnaire_id=#{id,jdbcType=VARCHAR}
+  </select>
 </mapper>

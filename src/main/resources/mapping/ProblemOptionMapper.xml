@@ -70,7 +70,7 @@
   </update>
   <select id="selectByProId"  resultMap="BaseResultMap" parameterType="java.lang.String">
     select
-    <include refid="Base_Column_List" />
+    *
     from problem_option
     where problem_id=#{id,jdbcType=VARCHAR}
   </select>
