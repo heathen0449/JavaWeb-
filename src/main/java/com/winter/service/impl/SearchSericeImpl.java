@@ -37,13 +37,14 @@ public class SearchSericeImpl implements SearchService {
                 questionnairePlus.setId(questionnaire.getId());
                 questionnairePlus.setQuestionContent(questionnaire.getQuestionContent());
                 questionnairePlus.setQuestionTitle(questionnaire.getQuestionTitle());
+                questionnairePlus.setQuestionName(questionnaire.getQuestionName());
                 questionnairePlus.setTypeId(questionnaire.getTypeId());
                 List<ProblemPlus> problemLists = new ArrayList<>();
                 List<ProblemInfo> problemSecond = problemInfoMapper.selectByQuesId(id);
                 for(ProblemInfo plus:problemSecond){
                     ProblemPlus hana = new ProblemPlus();
                     hana.setId(plus.getId());
-                    hana.setKindId(plus.getId());
+                    hana.setKindId(plus.getKindId());
                     hana.setProblemName(plus.getProblemName());
                     hana.setQuestionnaireId(plus.getQuestionnaireId());
                     hana.setOptionLists(problemOptionMapper.selectByProId(hana.getId()));

@@ -17,14 +17,116 @@
 </head>
 <body>
 <form>
-    <div id="title" name="title"class="firstblock">
+    <div id="title" name="title"class="firstLock">
+        <h1><strong>问卷展示</strong></h1>
         <label>请输入您想要搜索的问卷id</label>
         <input id="first" name="first" class="get_id"/>
+        <input type="button" id="search" name="search" class="searchIt" value="搜索" onclick="show()">
     </div>
     <div id="show" name="show" class="showtime">
         <hr/>
-        <div id="">
+        <div id="showProblem1" name="showProblem1"class="show1">
+        </div>
+        <div id="showProblem2" name="showProblem2"class="show2">
+        </div>
     </div>
 </form>
+<script type="text/javascript">
+
+    function Problem(){
+        this.id;
+        this.kindId;
+        this.questionnaireId;
+        this.problemName;
+        this.optionLists;
+    }
+
+    function ProblemOption(){
+        this.id;
+        this.problemId;
+        this.optionWord;
+    }
+
+    function Questionnaire(){
+        this.id;
+        this.typeId;
+        this.questionTitle;
+        this.questionName;
+        this.questionContent;
+        this.problemLists;
+    }
+
+    function show() {
+        var problem_id = document.getElementById('first').value;
+        var xmlhttp;
+        var kind1 = '{"1":"专业学习","2":"生活娱乐","3":"思想政治","4":"院校调研"}';
+        var kind2 = '{"1":"单选题","2":"多选题"}';
+        var option1 = JSON.parse(kind1);
+        var option2 = JSON.parse(kind2);
+        if (window.XMLHttpRequest) {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (problem_id == '') {
+            alert("未输入id值");
+            return;
+        } else {
+            var result;
+            xmlhttp.open("POST", "http://localhost:8080/show/noPage", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("id="+problem_id);
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        result = JSON.parse(xmlhttp.responseText);
+                        if (result.code == 0) {
+                            alert(result.msg);
+
+                        } else {
+
+                            var show1 = document.createElement("p");
+                            show1.innerHTML = "问卷名称: " + result.data.questionName;
+                            var show2 = document.createElement("p");
+                            show2.innerHTML = "问卷类型: " + option1[result.data.typeId];
+                            var show3 = document.createElement("p");
+                            show3.innerHTML = "问题说明: " + result.data.questionContent;
+                            var show4 = document.createElement("p");
+                            show4.innerHTML = "题目标题: " + result.data.questionTitle;
+                            var father1 = document.getElementById("showProblem1");
+                            father1.appendChild(show1);
+                            father1.appendChild(show2);
+                            father1.appendChild(show3);
+                            father1.appendChild(show4);
+                            var father2 = document.getElementById("showProblem2");
+                            for (let pro=0; pro<result.data.problemLists.length; pro++){
+                                var show5 = document.createElement("p");
+                                show5.innerHTML="题目："+result.data.problemLists[pro].problemName;
+                                var show7 = document.createElement("p");
+                                show7.innerHTML="类型："+option2[result.data.problemLists[pro].kindId];
+                                father2.appendChild(show5);
+                                father2.appendChild(show7);
+                                for( let pro1=0; pro1<result.data.problemLists[pro].optionLists.length; pro1++){
+                                    var show6 = document.createElement("p");
+                                    show6.innerHTML=result.data.problemLists[pro].optionLists[pro1].id+' '+result.data.problemLists[pro].optionLists[pro1].optionWord;
+                                    father2.appendChild(show6);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+
+
+</script>
 </body>
 </html>

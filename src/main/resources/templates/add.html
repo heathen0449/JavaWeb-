@@ -111,7 +111,7 @@
             this.typeId;
             this.questionTitle;
             this.questionName;
-            this.quesionContent;
+            this.questionContent;
             this.problemLists;
         }
         function optionInit(){
@@ -219,6 +219,7 @@
                             var result =JSON.parse(xmlhttp.responseText);
                             if(result.code==0){
                                 alert(result.msg);
+                                return;
                             }
                             else{
                                 alert("congratulation!添加成功");
