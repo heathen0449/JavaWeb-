@@ -1,0 +1,22 @@
+h1{
+    padding-left:750px ;
+    fontsize:80px;
+}
+
+div#quesWrite{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    aligin-self:flex-start;
+}
+.makeques{
+    padding-left: 600px;
+}
+.fuckyou{
+    padding-left:750px
+}
+
+
+.\.btn-group{
+    padding-left: 700px;
+}

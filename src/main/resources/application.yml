@@ -23,6 +23,11 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+    resources:
+        static-locations:["/templates/","/static/"]
+    thymeleaf:
+        mode:LEGACYHTML5
+
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.winter.model

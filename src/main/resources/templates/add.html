@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--suppress JSUnresolvedVariable -->
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>增加问卷</title>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/first.css}"/>
+</head>
+<body>
+<form>
+    <h1 id="dio" name="dio">增加问卷</h1>
+    <br/>
+    <div id="quesWrite"  name="quesWrite" class="form-group" >
+        <div id="first",name="first" >
+            <label  class="custom_control-label" for="queName">问卷名称</label>
+            <input id ="queName" name="queName" />
+        </div>
+        <div id="second" name="second" class="form-group">
+            <label for="queCon">问卷说明</label>
+            <input  id="queCon" name="queCon" type="text"/>
+        </div>
+        <div id="firth" name="firth" class="form-group">
+            <label for="title">题目标题</label>
+            <input  id="title" name="title"/>
+        </div>
+        <div id="third" name="third" class="form-group">
+            <label for="queKind" >问卷类型</label>
+            <select id="queKind" name="queKind" type="form-control"/>
+            <option value="1">专业学习</option>
+            <option value="2">生活娱乐</option>
+            <option value="3">思想政治</option>
+            <option value="4">院校调研</option>
+            </select>
+        </div>
+
+    </div>
+    <hr/>
+    <div id="quesMake"  name="quesMake" class="makeques">
+
+        <label for="proname">题目</label>
+        <input id="proname" name="proname" type="text"/>
+        <label for="choice1" class ="radio-inline">题目类型：</label>
+        单选题<input id="choice1"  name="choice" type="radio" value="1"/>
+        多选题<input id="choice2"  name="choice" type="radio" value="2"/>
+        <!--input type="button" id="initpro" name="initpro" value="生成问题编号" onclick="Initpronumber()"-->
+
+
+    </div>
+    <div class="fuckyou">
+        <br/>
+        <br/>
+        <label for="optionKind" >选项</label>
+        <select id="optionKind" name="optionKind" type="form-control" class="formcon"/>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        </select>
+        <br/>
+        <label for="optioncontext">选项内容</label>
+        <br/>
+        <textarea id="optioncontext" name="optioncontext"rows="5" ></textarea>
+    </div>
+    <br/>
+    <br/>
+    <div class=".btn-group">
+        <!--input type="button" id="quesinit" name="quesinit" value="生成问卷编号"onclick="Initquesnumber()"-->
+
+        <input type="button" id="optionsub" name="optionsub"value="提交选项" onclick="optionInit()">
+        <input type="button" id="probsub" value="提交问题"onclick="subprobelm()">
+        <input type="button" id="quessub"name="quessub" value="提交问卷" class="button3"onclick="subquesiton()">
+    </div>
+    <script type="text/javascript">
+        var xmlhttp;
+        var problemlist=[]; //问题集合
+        var optionlist=[];  //选项集合
+        var questionnaire = new Questionnaire();
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        function Problem(){
+            this.id;
+            this.kindId;
+            this.questionnaireId;
+            this.problemName;
+            this.optionLists;
+        }
+
+        function ProblemOption(){
+            this.id;
+            this.problemId;
+            this.optionWord;
+        }
+
+        function Questionnaire(){
+            this.id;
+            this.typeId;
+            this.questionTitle;
+            this.questionName;
+            this.questionContent;
+            this.problemLists;
+        }
+        function optionInit(){
+            var text = document.getElementById("optioncontext").value;
+            if (text ==''){
+                alert("选项未填");
+                return;
+            }
+            /*else if(problemlist.length==0||problemlist[problemlist.length-1].optionlists!=null){
+                alert("请初始化问题id");
+                return;
+            }*/
+            else
+            {
+                var option=new ProblemOption();
+                option.id=$("select#optionKind").find("option:selected").val();
+                alert(option.id);
+                for(let c=0;c<optionlist.length;c++){
+                    if(option.id==optionlist[c].id){
+                        alert("选项设置重复，请重新设置");
+                        return;
+                    }
+                }
+                option.optionWord=text;
+                //option.problemId=problemlist[problemlist.length-1].id;
+                optionlist.push(option);
+                $('#optioncontext').val('');
+                document.getElementById("optioncontext").value='';
+            }
+        }
+
+        function randomString(length, chars) {
+            var result = '';
+            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+            return result;
+        }
+        var rString = randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+/*
+        function Initquesnumber(){
+            questionnaire.id=randomString(32,'0123456789');
+        }
+
+        function Initpronumber(){
+            var firstproblem = new Problem();
+            firstproblem.id=randomString(20,'0123456789');
+            problemlist.push(firstproblem);
+        }*/
+        function subprobelm(){
+            /*var num = problemlist.length;
+            if (num==0){
+                alert("未初始化问题");
+                return;
+            }*/
+            if(document.getElementById("proname").value==''){
+                alert("未填写问题内容");
+                return;
+            }
+            else if($("input[type='radio']:checked").val()==undefined){
+                alert("未填写问题种类");
+                return;
+            }
+            else if(optionlist.length==0){
+                alert("未添加选项");
+                return;
+            }
+            else{
+                firstproblem = new Problem();
+                firstproblem.id=randomString(20,'0123456789');
+                problemlist.push(firstproblem);
+                for(let i=0;i<optionlist.length;i++){
+                    optionlist[i].problemId=firstproblem.id;
+                }
+                var num = problemlist.length;
+                var radio=document.getElementsByName("choice").value;
+                problemlist[num-1].kindId=$("input[type='radio']:checked").val();
+
+                $("input[type='radio']:checked").prop('checked', false);
+                //problemlist[num-1].questionnaireId=questionnaire.id;
+                problemlist[num-1].problemName=document.getElementById("proname").value;
+
+                problemlist[num-1].optionLists=optionlist;
+                optionlist=[];
+                document.getElementById("proname").value='';
+                alert(problemlist[num-1].kindId);
+                $("input[name='choice']:checked").val('');
+            }
+        }
+        function subquesiton(){
+            if (document.getElementById("queName").value==''||document.getElementById("queCon").value==''||document.getElementById("title").value==''){
+                alert("问卷信息不全");
+                return;
+            }
+            else if(problemlist.length==0||problemlist[problemlist.length-1].kindId==null){
+                alert("未添加问题");
+                return;
+            }
+            else{
+                questionnaire.id=randomString(32,'0123456789');
+                questionnaire.typeId=$('select#queKind option:selected').val();
+                questionnaire.questionTitle=$('#title').val();
+                $('#title').val('');
+                questionnaire.questionContent=$('#queCon').val();
+                $('#queCon').val('');
+                questionnaire.questionName=$('#queName').val();
+                $('#queName').val('');
+                questionnaire.problemLists=problemlist;
+                problemlist=[];
+                for(let a=0;a<questionnaire.problemLists.length;a++){
+                    questionnaire.problemLists[a].questionnaireId=questionnaire.id;
+                }
+                var json=JSON.stringify(questionnaire);
+                xmlhttp.open("POST","http://localhost:8080/add/addQuestionnaire",true);
+                xmlhttp.setRequestHeader("Content-type","application/json");
+                xmlhttp.onreadystatechange=function(){
+                    if(xmlhttp.readyState==4){
+                        if(xmlhttp.status==200){
+                            var result =JSON.parse(xmlhttp.responseText);
+                            if(result.code==0){
+                                alert(result.msg);
+                                return;
+                            }
+                            else{
+                                alert("congratulation!添加成功");
+                            }
+                        }
+                    }
+                }
+                xmlhttp.send(json);
+                alert(json)
+            }
+        }
+    </script>
+</form>
+</body>
+</html>

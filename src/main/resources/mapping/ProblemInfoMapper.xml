@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winter.mapper.ProblemInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.winter.model.ProblemInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="questionnaire_id" property="questionnaireId" jdbcType="VARCHAR" />
+    <result column="kind_id" property="kindId" jdbcType="VARCHAR" />
+    <result column="problem_name" property="problemName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, questionnaire_id, kind_id, problem_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.winter.model.ProblemInfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from problem_info
+    where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.winter.model.ProblemInfoKey" >
+    delete from problem_info
+    where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.winter.model.ProblemInfo" >
+    insert into problem_info (id, questionnaire_id, kind_id, 
+      problem_name)
+    values (#{id,jdbcType=VARCHAR}, #{questionnaireId,jdbcType=VARCHAR}, #{kindId,jdbcType=VARCHAR}, 
+      #{problemName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.winter.model.ProblemInfo" >
+    insert into problem_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="questionnaireId != null" >
+        questionnaire_id,
+      </if>
+      <if test="kindId != null" >
+        kind_id,
+      </if>
+      <if test="problemName != null" >
+        problem_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaireId != null" >
+        #{questionnaireId,jdbcType=VARCHAR},
+      </if>
+      <if test="kindId != null" >
+        #{kindId,jdbcType=VARCHAR},
+      </if>
+      <if test="problemName != null" >
+        #{problemName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.winter.model.ProblemInfo" >
+    update problem_info
+    <set >
+      <if test="kindId != null" >
+        kind_id = #{kindId,jdbcType=VARCHAR},
+      </if>
+      <if test="problemName != null" >
+        problem_name = #{problemName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.winter.model.ProblemInfo" >
+    update problem_info
+    set kind_id = #{kindId,jdbcType=VARCHAR},
+      problem_name = #{problemName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+      and questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByQuesId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from problem_info
+    where questionnaire_id=#{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

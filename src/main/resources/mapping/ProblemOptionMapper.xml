@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winter.mapper.ProblemOptionMapper" >
+  <resultMap id="BaseResultMap" type="com.winter.model.ProblemOption" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="problem_id" property="problemId" jdbcType="VARCHAR" />
+    <result column="option_word" property="optionWord" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, problem_id, option_word
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.winter.model.ProblemOptionKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from problem_option
+    where id = #{id,jdbcType=VARCHAR}
+      and problem_id = #{problemId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.winter.model.ProblemOptionKey" >
+    delete from problem_option
+    where id = #{id,jdbcType=VARCHAR}
+      and problem_id = #{problemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.winter.model.ProblemOption" >
+    insert into problem_option (id, problem_id, option_word
+      )
+    values (#{id,jdbcType=VARCHAR}, #{problemId,jdbcType=VARCHAR}, #{optionWord,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.winter.model.ProblemOption" >
+    insert into problem_option
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="problemId != null" >
+        problem_id,
+      </if>
+      <if test="optionWord != null" >
+        option_word,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="problemId != null" >
+        #{problemId,jdbcType=VARCHAR},
+      </if>
+      <if test="optionWord != null" >
+        #{optionWord,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.winter.model.ProblemOption" >
+    update problem_option
+    <set >
+      <if test="optionWord != null" >
+        option_word = #{optionWord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and problem_id = #{problemId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.winter.model.ProblemOption" >
+    update problem_option
+    set option_word = #{optionWord,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+      and problem_id = #{problemId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByProId"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    *
+    from problem_option
+    where problem_id=#{id,jdbcType=VARCHAR}
+  </select>
+</mapper>
