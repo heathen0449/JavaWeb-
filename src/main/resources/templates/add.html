@@ -53,7 +53,7 @@
         <label for="choice1" class ="radio-inline">题目类型：</label>
         单选题<input id="choice1"  name="choice" type="radio" value="1"/>
         多选题<input id="choice2"  name="choice" type="radio" value="2"/>
-        <input type="button" id="initpro" name="initpro" value="生成问题编号" onclick="Initpronumber()">
+        <!--input type="button" id="initpro" name="initpro" value="生成问题编号" onclick="Initpronumber()"-->
         <input type="button" id="probsub" value="提交问题"onclick="subprobelm()">
 
     </div>
@@ -73,7 +73,7 @@
     <br/>
     <br/>
     <div class=".btn-group">
-        <input type="button" id="quesinit" name="quesinit" value="生成问卷编号"onclick="Initquesnumber()">
+        <!--input type="button" id="quesinit" name="quesinit" value="生成问卷编号"onclick="Initquesnumber()"-->
         <input type="button" id="quessub"name="quessub" value="提交问卷" class="button3"onclick="subquesiton()">
         <input type="button" id="optionsub" name="optionsub"value="提交选项" onclick="optionInit()">
     </div>
@@ -120,17 +120,23 @@
                 alert("选项未填");
                 return;
             }
-            else if(problemlist.length==0||problemlist[problemlist.length-1].optionlists!=null){
+            /*else if(problemlist.length==0||problemlist[problemlist.length-1].optionlists!=null){
                 alert("请初始化问题id");
                 return;
-            }
+            }*/
             else
             {
                 var option=new ProblemOption();
                 option.id=$("select#optionKind").find("option:selected").val();
                 alert(option.id);
+                for(let c=0;c<optionlist.length;c++){
+                    if(option.id==optionlist[c].id){
+                        alert("选项设置重复，请重新设置");
+                        return;
+                    }
+                }
                 option.optionWord=text;
-                option.problemId=problemlist[problemlist.length-1].id;
+                //option.problemId=problemlist[problemlist.length-1].id;
                 optionlist.push(option);
                 $('#optioncontext').val('');
                 document.getElementById("optioncontext").value='';
@@ -143,7 +149,7 @@
             return result;
         }
         var rString = randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-
+/*
         function Initquesnumber(){
             questionnaire.id=randomString(32,'0123456789');
         }
@@ -152,23 +158,19 @@
             var firstproblem = new Problem();
             firstproblem.id=randomString(20,'0123456789');
             problemlist.push(firstproblem);
-        }
+        }*/
         function subprobelm(){
-            var num = problemlist.length;
+            /*var num = problemlist.length;
             if (num==0){
                 alert("未初始化问题");
                 return;
-            }
-            else if(document.getElementById("proname").value==''){
+            }*/
+            if(document.getElementById("proname").value==''){
                 alert("未填写问题内容");
                 return;
             }
-            else if($("input[name='choice']:checked").val()==''){
+            else if($("input[type='radio']:checked").val()==undefined){
                 alert("未填写问题种类");
-                return;
-            }
-            else if (questionnaire.id==null){
-                alert("未初始化问卷编号");
                 return;
             }
             else if(optionlist.length==0){
@@ -176,10 +178,20 @@
                 return;
             }
             else{
+                firstproblem = new Problem();
+                firstproblem.id=randomString(20,'0123456789');
+                problemlist.push(firstproblem);
+                for(let i=0;i<optionlist.length;i++){
+                    optionlist[i].problemId=firstproblem.id;
+                }
+                var num = problemlist.length;
                 var radio=document.getElementsByName("choice").value;
-                problemlist[num-1].kindId=$("input[name='choice']:checked").val();
-                problemlist[num-1].questionnaireId=questionnaire.id;
+                problemlist[num-1].kindId=$("input[type='radio']:checked").val();
+
+                $("input[type='radio']:checked").prop('checked', false);
+                //problemlist[num-1].questionnaireId=questionnaire.id;
                 problemlist[num-1].problemName=document.getElementById("proname").value;
+
                 problemlist[num-1].optionLists=optionlist;
                 optionlist=[];
                 document.getElementById("proname").value='';
@@ -192,15 +204,12 @@
                 alert("问卷信息不全");
                 return;
             }
-            else if(questionnaire.id==null){
-                alert("未初始化问卷编号");
-                return;
-            }
             else if(problemlist.length==0||problemlist[problemlist.length-1].kindId==null){
                 alert("未添加问题");
                 return;
             }
             else{
+                questionnaire.id=randomString(32,'0123456789');
                 questionnaire.typeId=$('select#queKind option:selected').val();
                 questionnaire.questionTitle=$('#title').val();
                 $('#title').val('');
@@ -210,6 +219,9 @@
                 $('#queName').val('');
                 questionnaire.problemLists=problemlist;
                 problemlist=[];
+                for(let a=0;a<questionnaire.problemLists.length;a++){
+                    questionnaire.problemLists[a].questionnaireId=questionnaire.id;
+                }
                 var json=JSON.stringify(questionnaire);
                 xmlhttp.open("POST","http://localhost:8080/add/addQuestionnaire",true);
                 xmlhttp.setRequestHeader("Content-type","application/json");
